@@ -1,21 +1,26 @@
 package autentica2;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
+import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,6 +39,7 @@ public class BikeForm extends javax.swing.JFrame {
     public static int ou;
 
     public BikeForm() {
+
         initComponents();
 
     }
@@ -46,11 +52,12 @@ public class BikeForm extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("employeedb?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
         booking_1Query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT b FROM Booking_1 b");
         booking_1List = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : booking_1Query.getResultList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         BikeID = new javax.swing.JComboBox<>();
         EmployeeID = new javax.swing.JComboBox<>();
@@ -67,13 +74,24 @@ public class BikeForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         CurrentTime = new javax.swing.JLabel();
         DatePicker = new org.jdesktop.swingx.JXDatePicker();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         RegisterID = new javax.swing.JTextField();
         RegisterName = new javax.swing.JTextField();
         RegisterLastName = new javax.swing.JTextField();
         RegisterEmployee = new javax.swing.JButton();
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,75 +157,101 @@ public class BikeForm extends javax.swing.JFrame {
 
         CurrentTime.setText("asa");
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, booking_1List, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
-        columnBinding.setColumnName("Id");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${bikeId}"));
-        columnBinding.setColumnName("Bike Id");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${date}"));
-        columnBinding.setColumnName("Date");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${timeStart}"));
-        columnBinding.setColumnName("Time Start");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${timeEnd}"));
-        columnBinding.setColumnName("Time End");
-        columnBinding.setColumnClass(String.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
+        jLabel1.setText("Register new employee");
 
-        jScrollPane1.setViewportView(jTable1);
+        RegisterID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        RegisterID.setText("id");
+        RegisterID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterIDActionPerformed(evt);
+            }
+        });
+
+        RegisterName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        RegisterName.setText("name");
+        RegisterName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterNameActionPerformed(evt);
+            }
+        });
+
+        RegisterLastName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        RegisterLastName.setText("last name");
+        RegisterLastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterLastNameActionPerformed(evt);
+            }
+        });
+
+        RegisterEmployee.setBackground(new java.awt.Color(134, 184, 164));
+        RegisterEmployee.setText("Register");
+        RegisterEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterEmployeeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(263, 263, 263)
-                        .addComponent(TitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(NotificationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(EmployeeLabel)
-                                        .addComponent(EmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(BikeID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(BicycleLabel))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(DatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(DateLabel)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(368, 368, 368)
-                                    .addComponent(jButton1)))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(TimeStartBox, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TimeStartLabel))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(TimeEndLabel)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(TimeEndBox, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                                    .addComponent(SubmitButton))))))
-                .addGap(107, 107, 107))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(CurrentTime, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(RegisterID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(RegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(RegisterLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(RegisterEmployee)))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(263, 263, 263)
+                                .addComponent(TitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 182, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(NotificationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(EmployeeLabel)
+                                                .addComponent(EmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(BikeID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(BicycleLabel))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(DatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(DateLabel)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(368, 368, 368)
+                                            .addComponent(jButton1)))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(TimeStartBox, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(TimeStartLabel))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(TimeEndLabel)
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(TimeEndBox, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                            .addComponent(SubmitButton))))))
+                        .addGap(107, 107, 107))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,39 +282,16 @@ public class BikeForm extends javax.swing.JFrame {
                         .addComponent(SubmitButton)))
                 .addGap(16, 16, 16)
                 .addComponent(NotificationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RegisterID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RegisterLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RegisterEmployee))
+                .addGap(32, 32, 32))
         );
-
-        jLabel1.setText("Register new employee");
-
-        RegisterID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        RegisterID.setText("id");
-        RegisterID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterIDActionPerformed(evt);
-            }
-        });
-
-        RegisterName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        RegisterName.setText("name");
-        RegisterName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterNameActionPerformed(evt);
-            }
-        });
-
-        RegisterLastName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        RegisterLastName.setText("last name");
-        RegisterLastName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterLastNameActionPerformed(evt);
-            }
-        });
-
-        RegisterEmployee.setBackground(new java.awt.Color(134, 184, 164));
-        RegisterEmployee.setText("Register");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,38 +299,14 @@ public class BikeForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(RegisterID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(RegisterLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(RegisterEmployee)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RegisterID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RegisterLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RegisterEmployee))
-                .addGap(0, 55, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -330,26 +327,32 @@ public class BikeForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RegisterIDActionPerformed
 
+    private void RegisterEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterEmployeeActionPerformed
+        String newID = RegisterID.getText();
+        String newName = RegisterName.getText();
+        String newLastName = RegisterLastName.getText();
+
+        registerNewEmployee(newID, newName, newLastName); // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterEmployeeActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            getConnection("root", "parole");
+            getConnection();
         } catch (Exception ex) {
             Logger.getLogger(BikeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         NotificationLabel.setVisible(false);
-        connectToAndAddComboBoxValuesEmployees("root", "parole");
-        connectToAndAddComboBoxValuesBikes("root", "parole");
+        connectToAndAddComboBoxValuesEmployees();
+        connectToAndAddComboBoxValuesBikes();
         setTimeStart();
         setTimeFinish();
 
-        // Calendar time_start = (Calendar) TimeStartBox.getSelectedItem();
-        //System.out.println(time_start);
         Date date = new Date();
         CurrentTime.setText(new SimpleDateFormat("MM-dd-yyyy HH:mm").format(date));
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
+
         ou = 0;
         NotificationLabel.setVisible(false);
         try {
@@ -372,10 +375,10 @@ public class BikeForm extends javax.swing.JFrame {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
                     String date = simpleDateFormat.format(DatePicker.getDate());
-
                     try {
                         post(eid, bid, date, timeStart, timeEnd);
                         //jTable1.repaint();
+
                     } catch (Exception ex) {
                         Logger.getLogger(BikeForm.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -384,7 +387,6 @@ public class BikeForm extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(BikeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void TimeEndBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeEndBoxActionPerformed
@@ -406,12 +408,13 @@ public class BikeForm extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    public static void main(String args[]) throws Exception {
+        Main frame = new Main();
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
+     
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -436,6 +439,7 @@ public class BikeForm extends javax.swing.JFrame {
                 new BikeForm().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -463,17 +467,77 @@ public class BikeForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 
-    public static void createConnection(String username, String password) {
+    @SuppressWarnings("empty-statement")
+
+    public static class Main extends JFrame {
+
+        public Main() throws Exception {
+            ArrayList columnNames = new ArrayList();
+            ArrayList data = new ArrayList();
+            Connection con = getConnection();
+
+            Statement stmt = con.createStatement();
+            String sql = "SELECT * FROM booking";
+            ResultSet rs = stmt.executeQuery(sql);
+            ResultSetMetaData md;
+            md = rs.getMetaData();
+
+            int columns = md.getColumnCount();
+            for (int i = 1; i <= columns; i++) {
+                columnNames.add(md.getColumnName(i));
+            }
+
+            while (rs.next()) {
+                ArrayList row = new ArrayList(columns);
+                for (int i = 1; i <= columns; i++) {
+                    row.add(rs.getObject(i));
+                }
+
+                data.add(row);
+            }
+            Vector columnNamesVector = new Vector();
+            Vector dataVector = new Vector();
+
+            for (int i = 0; i < data.size(); i++) {
+                ArrayList subArray = (ArrayList) data.get(i);
+                Vector subVector = new Vector();
+                for (int j = 0; j < subArray.size(); j++) {
+                    subVector.add(subArray.get(j));
+                }
+                dataVector.add(subVector);
+            }
+            for (int i = 0; i < columnNames.size(); i++) {
+                columnNamesVector.add(columnNames.get(i));
+            }
+            JTable table = new JTable(dataVector, columnNamesVector) {
+                public Class getColumnClass(int column) {
+                    for (int row = 0; row < getRowCount(); row++) {
+                        Object o = getValueAt(row, column);
+                        if (o != null) {
+                            return o.getClass();
+                        }
+                    }
+                    return Object.class;
+                }
+            };
+            JScrollPane scrollPane = new JScrollPane(table);
+            getContentPane().add(scrollPane);
+            JPanel buttonPanel = new JPanel();
+            getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        }
+
+    }
+
+    public static void createConnection() {
         try {
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/employeedb?zeroDateTimeBehavior=convertToNull",
-                    username,
-                    password);
+                    "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7252049?zeroDateTimeBehavior=convertToNull",
+                    "sql7252049",
+                    "sql7252049");
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * from emplyee");
@@ -485,12 +549,12 @@ public class BikeForm extends javax.swing.JFrame {
 
     }
 
-    public static void connectToAndAddComboBoxValuesEmployees(String username, String password) {
+    public static void connectToAndAddComboBoxValuesEmployees() {
         try {
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/employeedb?zeroDateTimeBehavior=convertToNull",
-                    username,
-                    password);
+                    "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7252049?zeroDateTimeBehavior=convertToNull",
+                    "sql7252049",
+                    "qpBiA6xPGd");
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * from emplyee");
@@ -507,12 +571,12 @@ public class BikeForm extends javax.swing.JFrame {
         }
     }
 
-    public static void connectToAndAddComboBoxValuesBikes(String username, String password) {
+    public static void connectToAndAddComboBoxValuesBikes() {
         try {
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/employeedb?zeroDateTimeBehavior=convertToNull",
-                    username,
-                    password);
+                    "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7252049?zeroDateTimeBehavior=convertToNull",
+                    "sql7252049",
+                    "qpBiA6xPGd");
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * from bikes");
@@ -557,24 +621,12 @@ public class BikeForm extends javax.swing.JFrame {
 
     }
 
-    public List<booking> bookingList = new ArrayList<>();
-
-    public void addBooking(String eid, String bid, String s, String e, String date) {
-
-        booking booking1 = new booking(eid, bid, date, s, e);
-
-        bookingList.add(booking1);
-        System.out.println(bookingList.get(0).toString());
-
-    }
-
-    public static Connection getConnection(String username, String password) throws Exception {
+    public static Connection getConnection() throws Exception {
         try {
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/employeedb?zeroDateTimeBehavior=convertToNull",
-                    username,
-                    password);
-            System.out.println("Connected");
+                    "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7252049?zeroDateTimeBehavior=convertToNull",
+                    "sql7252049",
+                    "qpBiA6xPGd");
             return con; // will return connection only if it works
         } catch (Exception e) {
             System.out.println(e);
@@ -585,7 +637,7 @@ public class BikeForm extends javax.swing.JFrame {
     public static void post(String id, String bike_id, String date, String time_start, String time_end) throws Exception {
 
         try {
-            Connection con = getConnection("root", "parole");
+            Connection con = getConnection();
 
             PreparedStatement pstmt = con.prepareStatement("Insert into booking (id, bike_id, date, time_start, time_end) VALUES ('" + id + "','" + bike_id + "','" + date + "','" + time_start + "','" + time_end + "')");
             pstmt.executeUpdate();
@@ -598,7 +650,7 @@ public class BikeForm extends javax.swing.JFrame {
     public static void checkIfBooked() throws SQLException, Exception {
 
         try {
-            Connection con = getConnection("root", "parole");
+            Connection con = getConnection();
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT id,bike_id,date,time_start,time_end FROM booking");
@@ -615,20 +667,17 @@ public class BikeForm extends javax.swing.JFrame {
                 //System.out.println("nike check id= " + bike_id_check);
                 if (BikeID.getSelectedItem().toString().equals(bike_id_check)) {
                     String l = CurrentTime.getText().substring(0, 10);
-                    //System.out.println(l);
-                    //System.out.println(BikeID.getSelectedItem().toString());
 
                     if (date_check.equals(l)) {
 
                         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
                         Date time_start_check1 = format.parse(time_start_check);
-                        System.out.println(time_start_check1);
+
                         Date selected_start_time = format.parse(TimeStartBox.getSelectedItem().toString());
-                        System.out.println(selected_start_time);
+
                         Date time_end_check1 = format.parse(time_end_check);
-                        System.out.println(time_end_check1);
+
                         Date selected_end_time = format.parse(TimeEndBox.getSelectedItem().toString());
-                        System.out.println(selected_end_time);
 
                         if (selected_start_time.compareTo(time_start_check1) <= 0 && selected_end_time.compareTo(time_end_check1) >= 0
                                 || selected_start_time.compareTo(time_start_check1) <= 0 && selected_end_time.compareTo(time_end_check1) <= 0 && selected_end_time.compareTo(time_start_check1) >= 0
@@ -663,18 +712,18 @@ public class BikeForm extends javax.swing.JFrame {
         }
 
     }
-     
-    public static void registerNewEmployee(String id, String name, String last_name){
-         try {
-            Connection con = getConnection("root", "parole");
 
-            PreparedStatement pstmt = con.prepareStatement("Insert into emplyee (id, name, last_name) VALUES ('" + id + "','" + name + "','" + last_name +"')");
+    public static void registerNewEmployee(String id, String name, String last_name) {
+        try {
+            Connection con = getConnection();
+
+            PreparedStatement pstmt = con.prepareStatement("Insert into emplyee (id, name, last_name) VALUES ('" + id + "','" + name + "','" + last_name + "')");
             pstmt.executeUpdate();
-            
 
         } catch (Exception e) {
-            
+
             System.out.println(e);
         }
+
     }
 }

@@ -10,4 +10,15 @@
       <property name="javax.persistence.jdbc.password" value="parole"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="sql7252049?zeroDateTimeBehavior=convertToNullPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>autentica2.Bikes</class>
+    <class>autentica2.Booking_1</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7252049?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="sql7252049"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="qpBiA6xPGd"/>
+    </properties>
+  </persistence-unit>
 </persistence>
