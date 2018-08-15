@@ -48,9 +48,11 @@ public class Player {
             totalPoints = totalPoints - 10;
             aceCount--;
         }
+                
+        }
         return totalPoints;
     }
-    
-    
-}
+    public ArrayList<Card> getCards(){
+        return this.cards;
+    }
 }

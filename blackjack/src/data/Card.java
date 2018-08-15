@@ -21,7 +21,7 @@ public class Card {
     }
     
     public String GetName(){
-        String name = (suit + " " + value);
+        String name = (suit + "" + value);
         return name;
     }
     
