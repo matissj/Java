@@ -560,7 +560,7 @@ public class BikeForm extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery("SELECT * from emplyee");
 
             while (rs.next()) {
-                int workerID = rs.getInt("id");
+                String workerID = rs.getString("id");
                 String wID = String.valueOf(workerID);
                 BikeForm.EmployeeID.addItem(wID);
             }
@@ -582,7 +582,7 @@ public class BikeForm extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery("SELECT * from bikes");
 
             while (rs.next()) {
-                int bikeID = rs.getInt("id");
+                String bikeID = rs.getString("id");
                 String bID = String.valueOf(bikeID);
                 BikeForm.BikeID.addItem(bID);
             }
